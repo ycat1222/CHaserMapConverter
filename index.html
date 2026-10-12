@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#f4f7f5" />
+    <meta name="color-scheme" content="light dark" />
     <meta name="description" content="U16プロコン旭川大会用 .map と東京大会用 JSON をブラウザー上で相互変換します。" />
     <title>MapConverter — マップ変換ツール</title>
     <link rel="stylesheet" href="./styles.css" />
@@ -13,6 +14,11 @@
     <main class="page-shell">
       <header class="topbar">
         <span class="brand">MapConverter</span>
+        <div class="theme-control" role="group" aria-label="表示テーマ">
+          <button class="theme-button" type="button" data-theme-choice="light" aria-pressed="false">ライト</button>
+          <button class="theme-button" type="button" data-theme-choice="dark" aria-pressed="false">ダーク</button>
+          <button class="theme-button" type="button" data-theme-choice="system" aria-pressed="true">システム</button>
+        </div>
       </header>
 
       <section class="hero" aria-labelledby="page-title">

@@ -11,8 +11,43 @@ const errorMessage = document.querySelector('#error-message');
 const convertButton = document.querySelector('#convert-button');
 const copyButton = document.querySelector('#copy-button');
 const downloadButton = document.querySelector('#download-button');
+const themeButtons = document.querySelectorAll('[data-theme-choice]');
+const colorSchemeMeta = document.querySelector('meta[name="theme-color"]');
+const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
+let selectedTheme = 'system';
+try {
+  const savedTheme = localStorage.getItem('map-converter-theme');
+  if (['light', 'dark', 'system'].includes(savedTheme)) selectedTheme = savedTheme;
+} catch {
+  selectedTheme = 'system';
+}
 let loadedFilename = '';
 let currentOutputExtension = 'json';
+
+function applyTheme() {
+  const effectiveTheme = selectedTheme === 'system' ? (systemTheme.matches ? 'dark' : 'light') : selectedTheme;
+  document.documentElement.dataset.theme = effectiveTheme;
+  colorSchemeMeta.content = effectiveTheme === 'dark' ? '#151a18' : '#f4f7f5';
+  themeButtons.forEach((button) => {
+    button.setAttribute('aria-pressed', String(button.dataset.themeChoice === selectedTheme));
+  });
+}
+
+function selectTheme(theme) {
+  selectedTheme = theme;
+  try {
+    localStorage.setItem('map-converter-theme', theme);
+  } catch {
+    // The selected theme still applies for this page view if storage is unavailable.
+  }
+  applyTheme();
+}
+
+themeButtons.forEach((button) => {
+  button.addEventListener('click', () => selectTheme(button.dataset.themeChoice));
+});
+systemTheme.addEventListener('change', applyTheme);
+applyTheme();
 
 const syncTextareaHeight = () => {
   resultText.style.height = `${sourceText.getBoundingClientRect().height}px`;
