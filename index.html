@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4f7f5" />
+    <meta name="description" content="U16プロコン旭川大会用 .map と東京大会用 JSON をブラウザー上で相互変換します。" />
+    <title>MapConverter — マップ変換ツール</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="module" src="./app.mjs"></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="topbar">
+        <span class="brand">MapConverter</span>
+      </header>
+
+      <section class="hero" aria-labelledby="page-title">
+        <h1 id="page-title">マップ変換ツール</h1>
+        <p class="hero-copy">U16プロコン旭川大会用の <code>.map</code> と東京大会用の <code>.json</code> を相互に変換します。</p>
+      </section>
+
+      <section class="info-row" aria-label="変換仕様">
+        <article class="info-item"><span class="info-icon">▦</span><div><h3>固定サイズ</h3><p>15列 × 17行のマップを検証します。</p></div></article>
+        <article class="info-item"><span class="info-icon info-icon-warm">↔</span><div><h3>双方向に変換</h3><p>Cool・Hotの位置もそのまま引き継ぎます。</p></div></article>
+        <article class="info-item"><span class="info-icon info-icon-blue browser-label" aria-hidden="true">WEB</span><div><h3>ファイルはブラウザー内で処理されます</h3><p>変換処理はすべてこの端末内で行います。</p></div></article>
+      </section>
+
+      <section class="converter-card" aria-label="マップ変換">
+        <div class="card-heading">
+          <div>
+            <p class="section-kicker">CONVERTER</p>
+            <h2>データを変換</h2>
+          </div>
+          <label class="format-picker">
+            <span>入力形式</span>
+            <select id="input-format" aria-label="入力形式">
+              <option value="auto">自動判定</option>
+              <option value="map">.map</option>
+              <option value="json">.json</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="panels">
+          <section class="panel" aria-labelledby="source-heading">
+            <div class="panel-heading">
+              <div class="panel-title"><span class="step-number">01</span><h3 id="source-heading">入力データ</h3></div>
+              <label class="file-button" for="file-input"><span aria-hidden="true">＋</span> ファイルを選択</label>
+              <input id="file-input" type="file" accept=".map,.json,application/json,text/plain" />
+            </div>
+            <textarea id="source-text" spellcheck="false" placeholder=".map または .json の内容を貼り付けるか、ファイルを選択してください" aria-label="変換する入力データ"></textarea>
+            <div class="panel-footer"><span id="source-filename">テキストを貼り付けて変換できます</span><button id="clear-button" class="text-button" type="button">クリア</button></div>
+          </section>
+
+          <div class="direction" aria-hidden="true"><span>→</span></div>
+
+          <section class="panel output-panel" aria-labelledby="result-heading">
+            <div class="panel-heading">
+              <div class="panel-title"><span class="step-number result-step">02</span><h3 id="result-heading">変換結果 <span id="output-extension" class="extension-badge" hidden></span></h3></div>
+              <button id="copy-button" class="text-button" type="button" disabled>コピー</button>
+            </div>
+            <textarea id="result-text" spellcheck="false" placeholder="変換結果がここに表示されます" aria-label="変換結果" readonly></textarea>
+            <div class="panel-footer"><span id="result-status" role="status" aria-live="polite">15 × 17 のマップに対応</span><button id="download-button" class="download-button" type="button" disabled>ダウンロード <span aria-hidden="true">↓</span></button></div>
+          </section>
+        </div>
+
+        <div class="action-row">
+          <p id="error-message" class="error-message" role="alert" aria-live="assertive"></p>
+          <button id="convert-button" class="convert-button" type="button">変換する <span aria-hidden="true">→</span></button>
+        </div>
+      </section>
+
+      <footer class="site-footer"><span>MapConverter</span><span>U16プロコン旭川大会 ↔ 東京大会</span></footer>
+    </main>
+  </body>
+</html>
