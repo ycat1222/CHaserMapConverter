@@ -60,7 +60,7 @@ function resetResult() {
   resultText.value = '';
   outputExtension.textContent = '';
   outputExtension.hidden = true;
-  resultStatus.textContent = '15 × 17 のマップに対応';
+  resultStatus.textContent = '';
   copyButton.disabled = true;
   downloadButton.disabled = true;
 }
